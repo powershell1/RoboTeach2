@@ -2,6 +2,7 @@ import Dog from "../../types/entities/dog";
 import Led from "../../types/entities/led";
 import { EmulatorWorkspaces } from "../../workspace";
 import { BlockCode } from "../blockCode";
+import { blockPicker, craftBlock } from "../blueprint";
 
 export class LEDBlock extends BlockCode {
     workspace: EmulatorWorkspaces;
@@ -63,9 +64,12 @@ export class BuzzerBlock extends BlockCode {
             find.beep!.stop();
             this.workspace.cacheCodeExecution = this.workspace.cacheCodeExecution.filter((block: any) => block !== find);
         }
-        this.beep = new BeepConstruct(440);
-        console.log(this.workspace.cacheCodeExecution);
-        this.workspace.cacheCodeExecution.push(this);
+        if (this.blockData['inputs']) {
+            const num = await craftBlock(this.workspace, blockPicker(this.blockData['inputs']['TONE'])).run();
+            this.beep = new BeepConstruct(num);
+            console.log(this.workspace.cacheCodeExecution);
+            this.workspace.cacheCodeExecution.push(this);
+        }
         // this.workspace.dog!.x = this.workspace.dog!.x - add;
         await super.run();
     }

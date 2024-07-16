@@ -1,6 +1,8 @@
 import { EmulatorWorkspaces } from "../workspace";
 import { BlockCode } from "./blockCode";
 import RunBlock from "./blocks/events";
+import { LoopBlock } from "./blocks/loop";
+import { MathBlock, MathOperationBlock } from "./blocks/math";
 import { WalkBlock, RotateBlock, LEDBlock, BuzzerBlock } from "./blocks/walk";
 
 
@@ -16,6 +18,12 @@ function craftBlock(workspace: EmulatorWorkspaces, blockData: { [id: string]: an
             return new LEDBlock(workspace, blockData);
         case 'buzzer_set':
             return new BuzzerBlock(workspace, blockData);
+        case 'math_number':
+            return new MathBlock(workspace, blockData);
+        case 'math_arithmetic':
+            return new MathOperationBlock(workspace, blockData);
+        case 'controls_repeat_ext':
+            return new LoopBlock(workspace, blockData);
         default:
             throw new Error(`Block not found ${blockData.type}`);
         // return new BlockCode(workspace, blockData);
@@ -24,6 +32,11 @@ function craftBlock(workspace: EmulatorWorkspaces, blockData: { [id: string]: an
 
 function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function blockPicker(inputs: { [id: string]: any }): any {
+    if (inputs['block']) return inputs['block'];
+    return inputs['shadow'];
 }
 
 async function compile(workspace: EmulatorWorkspaces, json: { [id: string]: any }) {
@@ -40,4 +53,4 @@ async function compile(workspace: EmulatorWorkspaces, json: { [id: string]: any 
     // craftBlock(workspace, 'walk').run();
 }
 
-export { compile, craftBlock };
+export { compile, craftBlock, blockPicker };
