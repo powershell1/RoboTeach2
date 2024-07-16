@@ -29,12 +29,13 @@ export class EmulatorWorkspaces {
     actionAvaible: number | null = null;
 
     cacheWorkspace: any[] = [];
+    cacheCodeExecution: any[] = [];
 
     constructor(action: number | null = 10) {
         this.clearCache();
         this.actionAvaible = action;
 
-        for (let y = 0; y < blockPer; y++) {
+/*      for (let y = 0; y < blockPer; y++) {
             const row = document.createElement('div');
             row.className = 'row';
             for (let x = 0; x < blockPer; x++) {
@@ -44,7 +45,7 @@ export class EmulatorWorkspaces {
                 row.appendChild(cell);
             }
             emulatorDiv.appendChild(row);
-        }
+        } */
 
         // this.randomStart();
         // this.randomEnd();
@@ -67,10 +68,6 @@ export class EmulatorWorkspaces {
     }
 
     resetLevel(): void {
-        emulatorDiv.querySelectorAll('.boxes').forEach((cell) => {
-            cell.classList.remove('dog');
-            cell.classList.remove('slime');
-        });
         const sturct = structuredClone(this.cacheWorkspace);
         // this.entities = [];
         // console.log("init" in this.entities);
@@ -99,6 +96,7 @@ export class EmulatorWorkspaces {
     }
 
     render(): void {
+        document.getElementsByClassName('sensor_emulator')[0].innerHTML = '';
         var property: { [id: string]: any } = ({ ...this });
         for (const prop in property['entities']) {
             const classProp: any = property['entities'][prop];
@@ -108,10 +106,10 @@ export class EmulatorWorkspaces {
         }
 
         if (this.actionAvaible == null) {
-            actionLeft.style.display = 'none';
+            // actionLeft.style.display = 'none';
             return;
         }
-        actionLeft.innerText = `Action Left: ${this.actionAvaible}`;
+        // actionLeft.innerText = `Action Left: ${this.actionAvaible}`;
         /*
         this.slimes.forEach((slime) => {
             const foundCell = findCell(slime.y, slime.x);

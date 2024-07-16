@@ -21,18 +21,8 @@ export default class Slime extends Pos2 implements InitableInstance {
     static init = (reference: Slime) => new Slime(reference.level, Pos2.init(reference), reference.rotation);
 
     render(): void {
-        const dogCell = findCell(this!.y, this!.x);
-        dogCell!.classList.add('slime');
-        const modRotate = mod(this!.rotation, 360);
-        var rotatedSet = `rotate(${mod(modRotate, 180)}deg)`;
-        rotatedSet += modRotate >= 180 ? ' rotateY(180deg)' : '';
-        dogCell!.style.setProperty('transform', rotatedSet);
     }
 
     clear(): void {
-        const dogCell = findCell(this!.y, this!.x);
-        if (dogCell == null) return;
-        dogCell!.style.removeProperty('transform');
-        dogCell!.classList.remove('slime');
     }
 }

@@ -51,20 +51,6 @@ iframe {
     transform: translateX(-100%);
 }
 
-.emulator {
-    display: flex;
-    background-color: gray;
-    position: relative;
-    flex-direction: column;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    height: 50vmin;
-    width: 50vmin;
-    background-size: calc((100/6)*1%);
-    background-image: url('./images/grass.png');
-}
-
 .row {
     display: flex;
     flex-direction: row;

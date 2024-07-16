@@ -1,10 +1,10 @@
 import { EmulatorWorkspaces } from "../workspace";
 import { BlockCode } from "./blockCode";
 import RunBlock from "./blocks/events";
-import { WalkBlock, RotateBlock } from "./blocks/walk";
+import { WalkBlock, RotateBlock, LEDBlock, BuzzerBlock } from "./blocks/walk";
 
 
-function craftBlock(workspace: EmulatorWorkspaces, blockData: { [id: string] : any }): BlockCode {
+function craftBlock(workspace: EmulatorWorkspaces, blockData: { [id: string]: any }): BlockCode {
     switch (blockData.type) {
         case 'move':
             return new WalkBlock(workspace, blockData);
@@ -12,9 +12,13 @@ function craftBlock(workspace: EmulatorWorkspaces, blockData: { [id: string] : a
             return new RotateBlock(workspace, blockData);
         case 'start_event':
             return new RunBlock(workspace, blockData);
+        case 'led_set':
+            return new LEDBlock(workspace, blockData);
+        case 'buzzer_set':
+            return new BuzzerBlock(workspace, blockData);
         default:
             throw new Error(`Block not found ${blockData.type}`);
-            // return new BlockCode(workspace, blockData);
+        // return new BlockCode(workspace, blockData);
     }
 }
 
@@ -22,7 +26,7 @@ function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function compile(workspace: EmulatorWorkspaces, json: { [id: string] : any }) {
+async function compile(workspace: EmulatorWorkspaces, json: { [id: string]: any }) {
     workspace.resetLevel();
     await sleep(500);
     const cacheB = json['blocks'];
@@ -36,4 +40,4 @@ async function compile(workspace: EmulatorWorkspaces, json: { [id: string] : any
     // craftBlock(workspace, 'walk').run();
 }
 
-export {compile, craftBlock};
+export { compile, craftBlock };

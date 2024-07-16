@@ -71,18 +71,8 @@ export default class Dog extends Pos2 implements InitableInstance {
     }
 
     render(): void {
-        const dogCell = findCell(this!.y, this!.x);
-        dogCell!.classList.add('dog');
-        const modRotate = mod(this!.rotation, 360);
-        var rotatedSet = `rotate(${mod(modRotate, 180)}deg)`;
-        rotatedSet += modRotate >= 180 ? ' rotateY(180deg)' : '';
-        dogCell!.style.setProperty('transform', rotatedSet);
     }
 
     clear(): void {
-        const dogCell = findCell(this!.y, this!.x);
-        if (dogCell == null) return;
-        dogCell!.style.removeProperty('transform');
-        dogCell!.classList.remove('dog');
     }
 }

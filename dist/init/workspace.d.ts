@@ -4,6 +4,7 @@ export declare class EmulatorWorkspaces {
     entities: Pos2 extends RenderableObject ? Pos2[] : RenderableObject[];
     actionAvaible: number | null;
     cacheWorkspace: any[];
+    cacheCodeExecution: any[];
     constructor(action?: number | null);
     addEntity(entity: RenderableObject): void;
     resetLevel(): void;
