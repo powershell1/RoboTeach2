@@ -9,10 +9,56 @@ export declare const toolbox: {
         kind: string;
         name: string;
         categorystyle: string;
-        contents: {
+        contents: ({
             kind: string;
             type: string;
-        }[];
+            inputs?: undefined;
+        } | {
+            kind: string;
+            type: string;
+            inputs: {
+                SECONDS: {
+                    shadow: {
+                        type: string;
+                        fields: {
+                            NUM: number;
+                        };
+                    };
+                };
+                TONE?: undefined;
+                MOTOR?: undefined;
+            };
+        } | {
+            kind: string;
+            type: string;
+            inputs: {
+                TONE: {
+                    shadow: {
+                        type: string;
+                        fields: {
+                            NUM: number;
+                        };
+                    };
+                };
+                SECONDS?: undefined;
+                MOTOR?: undefined;
+            };
+        } | {
+            kind: string;
+            type: string;
+            inputs: {
+                MOTOR: {
+                    shadow: {
+                        type: string;
+                        fields: {
+                            NUM: number;
+                        };
+                    };
+                };
+                SECONDS?: undefined;
+                TONE?: undefined;
+            };
+        })[];
     } | {
         kind: string;
         name: string;

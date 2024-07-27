@@ -1,19 +1,17 @@
 import { EmulatorWorkspaces } from "../workspace";
 import { BlockCode } from "./blockCode";
-import RunBlock from "./blocks/events";
+import { RunBlock, WaitFor } from "./blocks/events";
 import { LoopBlock } from "./blocks/loop";
 import { MathBlock, MathOperationBlock } from "./blocks/math";
-import { WalkBlock, RotateBlock, LEDBlock, BuzzerBlock } from "./blocks/walk";
+import { LEDBlock, BuzzerBlock } from "./blocks/sensors";
 
 
 function craftBlock(workspace: EmulatorWorkspaces, blockData: { [id: string]: any }): BlockCode {
     switch (blockData.type) {
-        case 'move':
-            return new WalkBlock(workspace, blockData);
-        case 'turn_degrees':
-            return new RotateBlock(workspace, blockData);
         case 'start_event':
             return new RunBlock(workspace, blockData);
+        case 'wait_for':
+            return new WaitFor(workspace, blockData);
         case 'led_set':
             return new LEDBlock(workspace, blockData);
         case 'buzzer_set':
@@ -41,7 +39,7 @@ function blockPicker(inputs: { [id: string]: any }): any {
 
 async function compile(workspace: EmulatorWorkspaces, json: { [id: string]: any }) {
     workspace.resetLevel();
-    await sleep(500);
+    await sleep(250);
     const cacheB = json['blocks'];
     if (!cacheB) return;
     const blocks: any[] = cacheB['blocks'];

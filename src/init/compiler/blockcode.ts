@@ -25,7 +25,6 @@ export class BlockCode {
             this.workspace.actionAvaible = actionAvaible - 1;
         }
         this.workspace.render();
-        if (actionDeduct) await timeout(500);
         const nextBlock = this.blockData['next'];
         if (nextBlock) {
             const nextBlockData = craftBlock(this.workspace, nextBlock['block']);
