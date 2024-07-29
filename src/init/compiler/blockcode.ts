@@ -25,6 +25,11 @@ export class BlockCode {
             this.workspace.actionAvaible = actionAvaible - 1;
         }
         this.workspace.render();
+        self.postMessage(this.workspace);
+        /*
+        console.log(global.__CALLBACK_F__);
+        global.__CALLBACK_F__();
+        */
         const nextBlock = this.blockData['next'];
         if (nextBlock) {
             const nextBlockData = craftBlock(this.workspace, nextBlock['block']);

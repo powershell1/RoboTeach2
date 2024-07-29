@@ -31,7 +31,16 @@ var isCompiling = false;
 document.getElementById('compile')?.addEventListener('click', async (event) => {
     if (isCompiling) return;
     isCompiling = true;
+
+    /*
+    const worker = new Worker(new URL("./threads/test.ts", import.meta.url));
+    worker.onmessage = (event) => {
+        console.log(event.data);
+    }
+    worker.postMessage([workspace, blocklyWorkspaceJSON]);
+    */
     await compile(workspace, blocklyWorkspaceJSON);
+    // await worker.postMessage({ workspace, blocklyWorkspaceJSON });
     isCompiling = false;
 });
 

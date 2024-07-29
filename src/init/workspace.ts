@@ -2,28 +2,6 @@ import Dog from "./types/entities/dog";
 import { RenderableObject } from "./types/interfaces";
 import Pos2 from "./types/pos2";
 
-const actionLeft = document.getElementById('action_limit')!;
-const emulatorDiv = document.querySelector('.emulator')!;
-
-const numberOfBlock = 6 ** 2;
-const blockPer = Math.sqrt(numberOfBlock);
-const findCell = (y: number, x: number) => document.getElementById(`${y}-${x}`);
-const random = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
-
-function getValue<T, K extends keyof T>(data: T, key: K) {
-    return data[key];
-}
-
-class CloneableObject {
-    construct: any;
-    object: any;
-
-    constructor(construct: any, object: any) {
-        this.construct = construct;
-        this.object = object;
-    }
-}
-
 export class EmulatorWorkspaces {
     entities: Pos2 extends RenderableObject ? Pos2[] : RenderableObject[] = [];
     actionAvaible: number | null = null;
@@ -35,17 +13,17 @@ export class EmulatorWorkspaces {
         this.clearCache();
         this.actionAvaible = action;
 
-/*      for (let y = 0; y < blockPer; y++) {
-            const row = document.createElement('div');
-            row.className = 'row';
-            for (let x = 0; x < blockPer; x++) {
-                const cell = document.createElement('div');
-                cell.className = 'boxes';
-                cell.id = `${y}-${x}`;
-                row.appendChild(cell);
-            }
-            emulatorDiv.appendChild(row);
-        } */
+        /*      for (let y = 0; y < blockPer; y++) {
+                    const row = document.createElement('div');
+                    row.className = 'row';
+                    for (let x = 0; x < blockPer; x++) {
+                        const cell = document.createElement('div');
+                        cell.className = 'boxes';
+                        cell.id = `${y}-${x}`;
+                        row.appendChild(cell);
+                    }
+                    emulatorDiv.appendChild(row);
+                } */
 
         // this.randomStart();
         // this.randomEnd();
@@ -96,18 +74,20 @@ export class EmulatorWorkspaces {
     }
 
     render(): void {
-        document.getElementsByClassName('sensor_emulator')[0].innerHTML = '';
-        var property: { [id: string]: any } = ({ ...this });
-        for (const prop in property['entities']) {
-            const classProp: any = property['entities'][prop];
-            if (classProp != null && "render" in classProp) {
-                classProp.render();
+        if (typeof window != 'undefined') {
+            document.getElementsByClassName('sensor_emulator')[0].innerHTML = '';
+            var property: { [id: string]: any } = ({ ...this });
+            for (const prop in property['entities']) {
+                const classProp: any = property['entities'][prop];
+                if (classProp != null && "render" in classProp) {
+                    classProp.render();
+                }
             }
-        }
 
-        if (this.actionAvaible == null) {
-            // actionLeft.style.display = 'none';
-            return;
+            if (this.actionAvaible == null) {
+                // actionLeft.style.display = 'none';
+                return;
+            }
         }
         // actionLeft.innerText = `Action Left: ${this.actionAvaible}`;
         /*
