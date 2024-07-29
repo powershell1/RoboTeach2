@@ -1,4 +1,3 @@
-import Dog from "./types/entities/dog";
 import { RenderableObject } from "./types/interfaces";
 import Pos2 from "./types/pos2";
 

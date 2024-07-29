@@ -3,7 +3,7 @@ import { BlockCode } from "./blockCode";
 import { RunBlock, WaitFor } from "./blocks/events";
 import { LoopBlock } from "./blocks/loop";
 import { MathBlock, MathOperationBlock } from "./blocks/math";
-import { LEDBlock, BuzzerBlock } from "./blocks/sensors";
+import { LEDBlock, BuzzerBlock, ServoBlock } from "./blocks/sensors";
 
 
 function craftBlock(workspace: EmulatorWorkspaces, blockData: { [id: string]: any }): BlockCode {
@@ -16,6 +16,8 @@ function craftBlock(workspace: EmulatorWorkspaces, blockData: { [id: string]: an
             return new LEDBlock(workspace, blockData);
         case 'buzzer_set':
             return new BuzzerBlock(workspace, blockData);
+        case 'rotate_servo':
+            return new ServoBlock(workspace, blockData);
         case 'math_number':
             return new MathBlock(workspace, blockData);
         case 'math_arithmetic':

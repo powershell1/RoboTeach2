@@ -5,6 +5,12 @@ body {
 
 * {
     image-rendering: crisp-edges;
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
+    /* Standard syntax */
 }
 
 :root {
@@ -39,6 +45,7 @@ iframe {
 .sensor_emulator {
     justify-content: center;
     align-items: center;
+    overflow: scroll;
     flex: 2;
 }
 
@@ -67,13 +74,4 @@ iframe {
     height: 100%;
     width: 100%;
     background-size: contain;
-}
-
-.dog {
-    background-image: url('./images/dog.png');
-    /*transform: var(--dog-rotation);*/
-}
-
-.slime {
-    background-image: url('./images/slime.png');
 }

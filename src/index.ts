@@ -1,9 +1,8 @@
 import './index.css';
 import { compile } from './init/compiler/blueprint';
 import Buzzer from './init/types/entities/buzzer';
-import Dog from './init/types/entities/dog';
 import Led from './init/types/entities/led';
-import Slime from './init/types/entities/slime';
+import Servo from './init/types/entities/servo';
 import { InitableConstructor, InitableInstance } from './init/types/interfaces';
 import Pos2 from './init/types/pos2';
 import { EmulatorWorkspaces } from './init/workspace';
@@ -11,6 +10,7 @@ import { EmulatorWorkspaces } from './init/workspace';
 const workspace = new EmulatorWorkspaces();
 workspace.addEntity(new Led(new Pos2(1, 1)));
 workspace.addEntity(new Buzzer(new Pos2(2, 1)));
+workspace.addEntity(new Servo(new Pos2(1, 2)));
 // workspace.addEntity(new Slime(workspace, new Pos2(5, 5), 0));
 
 // beep(10);

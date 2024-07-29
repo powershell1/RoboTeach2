@@ -1,6 +1,6 @@
 import Buzzer from "../../types/entities/buzzer";
-import Dog from "../../types/entities/dog";
 import Led from "../../types/entities/led";
+import Servo from "../../types/entities/servo";
 import { EmulatorWorkspaces } from "../../workspace";
 import { BlockCode } from "../blockCode";
 import { blockPicker, craftBlock } from "../blueprint";
@@ -23,6 +23,31 @@ export class LEDBlock extends BlockCode {
                 entity.state = this.blockData['fields']['LED'] === '0';
             }
         });
+        // this.workspace.dog!.x = this.workspace.dog!.x - add;
+        await super.run();
+    }
+}
+
+export class ServoBlock extends BlockCode {
+    workspace: EmulatorWorkspaces;
+    blockData: { [id: string]: any; };
+
+    constructor(workspace: EmulatorWorkspaces, blockData: { [id: string]: any }) {
+        super(workspace, blockData);
+        this.workspace = workspace;
+        this.blockData = blockData;
+    }
+
+    async run() {
+        super.clear();
+        if (this.blockData['inputs']) {
+            const num = await craftBlock(this.workspace, blockPicker(this.blockData['inputs']['MOTOR'])).run();
+            this.workspace.entities.forEach((entity: any) => {
+                if (entity instanceof Servo) {
+                    entity.rotation = num;
+                }
+            });
+        }
         // this.workspace.dog!.x = this.workspace.dog!.x - add;
         await super.run();
     }
